@@ -30,8 +30,8 @@ admin/profile/edit にアクセスしたら ProfileController の edit Action �
 割り当てるように設定してください。*/
 
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('/profile/create', 'Admin\ProfileController@add');
-    Route::get('/profile/edit', 'Admin\ProfileController@edit');
+    Route::get('/profile/create', 'Admin\ProfileController@add')->middleware('auth');
+    Route::get('/profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
 
 });
 Auth::routes();
@@ -40,26 +40,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
-});
-
-/*
-【応用】11章で /admin/profile/create にアクセスしたら 
-ProfileController の add Action に割り当てるように設定しました。
-ログインしていない状態で /admin/profile/create にアクセスした場合に
-ログイン画面にリダイレクトされるように設定しましょう。
-*/
-
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-});
-
-/*
-【応用】同様に 11章で /admin/profile/edit にアクセスしたら
-ProfileController の edit Action に割り当てるように設定しました。
-ログインしていない状態で /admin/profile/edit にアクセスした場合に
-ログイン画面にリダイレクトされるように設定しましょう。
-*/
-
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
 });
